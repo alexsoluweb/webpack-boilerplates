@@ -7,8 +7,7 @@ const mode = process.argv.includes('production') ? 'production' : 'development';
 module.exports = {
     devtool: mode === 'development' ? 'source-map' : false,
     entry: {
-        bootstrap: './src/js/bootstrap.js',  
-        frontend: './src/js/frontend.js',
+        main: './src/js/main.js',  
         style: './src/sass/main.scss',
     },
     output: {
