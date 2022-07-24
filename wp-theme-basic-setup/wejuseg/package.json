@@ -1,0 +1,30 @@
+{
+  "name": "wp-theme-basic-setup",
+  "version": "1.0.0",
+  "main": "webpack.config.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack --mode development --watch",
+    "clean": "rm -rf ./assets/ ./node_modules"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com:alexsoluweb/webpack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "jquery": "^3.6.0"
+  },
+  "devDependencies": {
+    "css-loader": "^6.7.1",
+    "mini-css-extract-plugin": "^2.6.0",
+    "sass": "^1.51.0",
+    "sass-loader": "^12.6.0",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-remove-empty-scripts": "^0.8.0"
+  }
+}
