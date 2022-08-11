@@ -1,11 +1,11 @@
 {
-  "name": "wp-theme-basic-setup",
-  "version": "1.0.0",
+  "name": "bootstrap-4",
+  "version": "1.0",
   "main": "webpack.config.js",
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack --mode development --watch",
-    "clean": "rm -rf ./assets/ ./node_modules"
+    "clean": "rm -rf ./assets/js/ ./assets/css/ ./node_modules"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "jquery": "^3.6.0"
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.6.0",
+    "popper.js": "^1.16.1"
   },
   "devDependencies": {
     "css-loader": "^6.7.1",

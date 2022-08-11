@@ -1,11 +1,11 @@
 {
-  "name": "webpack-bootstrap-4.3",
-  "version": "1.0",
+  "name": "basic-setup",
+  "version": "1.0.0",
   "main": "webpack.config.js",
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack --mode development --watch",
-    "clean": "rm -rf ./assets/js/ ./assets/css/ ./node_modules"
+    "clean": "rm -rf ./assets/ ./node_modules"
   },
   "repository": {
     "type": "git",
@@ -16,9 +16,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "bootstrap": "^4.3.1",
-    "jquery": "^3.6.0",
-    "popper.js": "^1.16.1"
+    "jquery": "^3.6.0"
   },
   "devDependencies": {
     "css-loader": "^6.7.1",

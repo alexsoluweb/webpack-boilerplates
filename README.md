@@ -1,3 +1,1 @@
-# TODO
-
-Webpack configured with tailwind (@see project entreprisespec)
+Some WebPack boilerplates
