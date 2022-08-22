@@ -21,3 +21,6 @@ or
 ```
 npm run build # for production
 ```
+
+Note:
+	The jQuery module is not bundled and must be included before this bundle.
