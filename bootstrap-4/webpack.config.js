@@ -35,11 +35,28 @@ module.exports = {
         }),
     ],
     module: {
-      rules: [
-        {
-          test: /\.s?css$/i,
-          use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
-        },
+        rules: [
+            // Style
+            {
+                test: /\.s?css$/i,
+                use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+            },
+            // Fonts
+            {
+                test: /\.(eot|ttf|woff|woff2)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: './fonts/[name][ext]',
+                },
+            },
+            // Images
+            {
+                test: /\.(svg|png|jpg|jpeg|gif)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: './images/[name][ext]',
+                },
+            },
       ],
     },
 };

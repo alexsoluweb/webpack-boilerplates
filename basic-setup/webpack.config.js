@@ -34,6 +34,14 @@ module.exports = {
                 test: /\.s?css$/i,
                 use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
             },
+            // Fonts
+            {
+                test: /\.(eot|ttf|woff|woff2)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: './fonts/[name][ext]',
+                },
+            },
             // Images
             {
                 test: /\.(svg|png|jpg|jpeg|gif)$/i,
