@@ -39,7 +39,13 @@ module.exports = {
             // Style
             {
                 test: /\.s?css$/i,
-                use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader", "resolve-url-loader", "sass-loader"],
+                use: [
+                    MiniCssExtractPlugin.loader, 
+                    "css-loader", 
+                    "postcss-loader", 
+                    "resolve-url-loader", 
+                    "sass-loader"
+                ],
             },
             // Fonts
             {
