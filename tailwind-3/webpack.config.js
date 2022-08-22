@@ -2,6 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 const mode = process.argv.includes('production') ? 'production' : 'development';
+const { ProvidePlugin } = require("webpack");
 
 module.exports = {
     devtool: mode === 'development' ? 'source-map' : false,
@@ -22,6 +23,12 @@ module.exports = {
         // Extract CSS from commonjs into seperate file
         new MiniCssExtractPlugin({
             filename: "css/[name].css",
+        }),
+        // Provide jQuery globally
+        new ProvidePlugin({
+            $: "jquery",
+            "global.$": "jquery",
+            "window.$": "jquery",
         }),
     ],
     externals: {

@@ -16,7 +16,6 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "jquery": "^3.6.0"
   },
   "devDependencies": {
     "css-loader": "^6.7.1",

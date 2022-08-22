@@ -2,6 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 const mode = process.argv.includes('production') ? 'production' : 'development';
+const { ProvidePlugin } = require("webpack");
 
 module.exports = {
     devtool: mode === 'development' ? 'source-map' : false,
@@ -23,6 +24,12 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "css/[name].css",
         }),
+        // Provide jQuery globally
+        new ProvidePlugin({
+            $: "jquery",
+            "global.$": "jquery",
+            "window.$": "jquery",
+        }),
     ],
     externals: {
         jquery: 'jQuery',
@@ -36,7 +43,7 @@ module.exports = {
             },
             // Fonts
             {
-                test: /\.(eot|ttf|woff|woff2)$/i,
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
                 type: 'asset/resource',
                 generator: {
                     filename: './fonts/[name][ext]',
