@@ -2,7 +2,7 @@
 
 # Description
 
-Simple boilerplate to start using Webpack
+Simple boilerplates to start using Webpack
 
 # How to use
 
