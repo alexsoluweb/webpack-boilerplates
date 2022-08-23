@@ -40,11 +40,16 @@ module.exports = {
             {
                 test: /\.s?css$/i,
                 use: [
-                    MiniCssExtractPlugin.loader, 
-                    "css-loader", 
-                    "postcss-loader", 
-                    "resolve-url-loader", 
-                    "sass-loader"
+                    MiniCssExtractPlugin.loader,
+                    "css-loader",
+                    "postcss-loader",
+                    "resolve-url-loader",
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true,
+                        }
+                    }
                 ],
             },
             // Fonts
