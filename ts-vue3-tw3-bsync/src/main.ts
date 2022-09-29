@@ -1,10 +1,7 @@
 // Misc
 import './sass/style.scss'
 // Vue
-import { createApp } from 'vue'
-// Plugins
-import { Slide } from 'vue-burger-menu';
-import type from 'webpack/types'
+import { createApp } from 'vue';
 
 // Create vue app
 const app = createApp({});
@@ -15,9 +12,6 @@ ComponentContext.keys().forEach(componentFilePath => {
     const componentName = componentFilePath.split('/').pop().split('.')[0];
     app.component(componentName, ComponentContext(componentFilePath).default);
 });
-
-// Plugins components
-app.component(Slide, Slide.default)
 
 // Mount vue app
 app.mount('#app');
