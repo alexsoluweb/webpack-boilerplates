@@ -113,10 +113,4 @@ module.exports = {
             },
         },
     },
-    // Open devtools in editor
-    devServer: {
-        before(app) {
-            app.use('/__open-in-editor', openInEditor('code'))
-        }
-    }
 };
