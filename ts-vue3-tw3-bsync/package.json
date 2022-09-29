@@ -11,13 +11,7 @@
     "type": "git",
     "url": "ssh://git@github.com:alexsoluweb/webpack.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "dayjs": "^1.11.5",
-    "hamburgers": "^1.2.1",
     "vue": "^3.2.39"
   },
   "devDependencies": {
