@@ -1,11 +1,10 @@
 {
-  "name": "vue3-tailwind3",
+  "name": "ts-vue3-tw3-bsync",
   "version": "1.0.0",
   "main": "webpack.config.js",
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack --mode development --watch",
-    "server": "webpack --mode development --config webpack.server.config.js",
     "clean": "rm -rf ./assets/ ./node_modules"
   },
   "repository": {
@@ -17,10 +16,14 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "dayjs": "^1.11.5",
+    "hamburgers": "^1.2.1",
     "vue": "^3.2.39"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.7",
+    "browser-sync": "^2.27.10",
+    "browser-sync-webpack-plugin": "^2.3.0",
     "css-loader": "^6.7.1",
     "mini-css-extract-plugin": "^2.6.0",
     "postcss": "^8.4.13",

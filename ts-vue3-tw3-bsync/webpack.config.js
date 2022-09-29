@@ -4,6 +4,8 @@ const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 const mode = process.argv.includes('production') ? 'production' : 'development';
 const { ProvidePlugin, DefinePlugin } = require("webpack");
 const { VueLoaderPlugin } = require('vue-loader');
+const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
+var pjson = require('./package.json');
 
 module.exports = {
     devtool: mode === 'development' ? 'source-map' : false,
@@ -22,7 +24,7 @@ module.exports = {
         extensions: [".js", ".ts", ".vue"],
     },
     plugins: [
-        new DefinePlugin({ __VUE_OPTIONS_API__: true, __VUE_PROD_DEVTOOLS__: true }),
+        new DefinePlugin({ __VUE_OPTIONS_API__: false, __VUE_PROD_DEVTOOLS__: false }),
         // Vue loader
         new VueLoaderPlugin(),
         // Remove empty scripts for style entry
@@ -36,6 +38,14 @@ module.exports = {
             $: "jquery",
             "global.$": "jquery",
             "window.$": "jquery",
+        }),
+        // Browser Sync
+        new BrowserSyncPlugin({
+            host: "localhost",
+            port: 3000,
+            proxy: `${pjson.name}.localhost`,
+            notify: false,
+            files: ["./(**/)?.php", "./**/*.vue", "./**/*.js"],
         }),
     ],
     externals: {
@@ -103,4 +113,10 @@ module.exports = {
             },
         },
     },
+    // Open devtools in editor
+    devServer: {
+        before(app) {
+            app.use('/__open-in-editor', openInEditor('code'))
+        }
+    }
 };
