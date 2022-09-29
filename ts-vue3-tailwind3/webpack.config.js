@@ -8,8 +8,7 @@ const { VueLoaderPlugin } = require('vue-loader');
 module.exports = {
     devtool: mode === 'development' ? 'source-map' : false,
     entry: {
-        frontend: './src/frontend.js',
-        style: './src/sass/style.scss',
+        frontend: './src/main.js',
     },
     output: {
         filename: 'js/[name].js',
@@ -17,11 +16,13 @@ module.exports = {
         clean: true,
     },
     resolve: {
-        alias: { vue: "vue/dist/vue.esm-bundler.js" },
+        alias: {
+            vue: "vue/dist/vue.esm-bundler.js",
+        },
         extensions: [".js", ".ts", ".vue"],
     },
     plugins: [
-        new DefinePlugin({ __VUE_OPTIONS_API__: true, __VUE_PROD_DEVTOOLS__: true }), 
+        new DefinePlugin({ __VUE_OPTIONS_API__: true, __VUE_PROD_DEVTOOLS__: true }),
         // Vue loader
         new VueLoaderPlugin(),
         // Remove empty scripts for style entry
@@ -89,5 +90,17 @@ module.exports = {
                 }
             },
         ],
+    },
+    // Load Vendors module into separate file
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/].*\.js$/,
+                    name: "vendors",
+                    chunks: "initial",
+                },
+            },
+        },
     },
 };
