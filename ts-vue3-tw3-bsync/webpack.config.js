@@ -10,7 +10,7 @@ var pjson = require('./package.json');
 module.exports = {
     devtool: mode === 'development' ? 'source-map' : false,
     entry: {
-        frontend: './src/main.js',
+        frontend: './src/main.ts',
     },
     output: {
         filename: 'js/[name].js',
@@ -45,7 +45,7 @@ module.exports = {
             port: 3000,
             proxy: `${pjson.name}.localhost`,
             notify: false,
-            files: ["./(**/)?.php", "./**/*.vue", "./**/*.js"],
+            files: ["./(**/)?.(php|js|vue|ts)"],
         }),
     ],
     externals: {

@@ -9,12 +9,15 @@
 		"allowJs": true,
 		"moduleResolution": "Node",
 		"esModuleInterop": true,
+		"types": [
+			"webpack-env"
+		]
 	},
 	"include": [
 		"src/**/*.ts",
 		"src/**/*.d.ts",
 		"src/**/*.vue",
-		"src/main.js"
+		"src/main.ts"
 	],
 	"exclude": [
 		"node_modules"
