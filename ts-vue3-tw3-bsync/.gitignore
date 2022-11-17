@@ -1,4 +1,8 @@
+.vscode
 assets
 node_modules
 vendor
 *.log
+_tmp
+composer.lock
+_license

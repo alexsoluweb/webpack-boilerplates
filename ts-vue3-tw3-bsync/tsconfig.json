@@ -3,23 +3,30 @@
 		"sourceMap": true,
 		"outDir": "assets",
 		"noImplicitAny": false,
-		"module": "ES6",
+		"moduleResolution": "Node",
+		"module": "ESNext",
 		"target": "ES6",
 		"jsx": "preserve",
 		"allowJs": true,
-		"moduleResolution": "Node",
 		"esModuleInterop": true,
+		"baseUrl": "src",
+		"typeRoots": [
+			"./node_modules/@types",
+			".src/@types",
+		],
 		"types": [
-			"webpack-env"
-		]
+			"webpack-env",
+			"jquery",
+		],
+		"lib": [
+			"DOM",
+			"ESNext",
+		],
 	},
 	"include": [
-		"src/**/*.ts",
-		"src/**/*.d.ts",
-		"src/**/*.vue",
-		"src/main.ts"
+		"src/**/*"
 	],
 	"exclude": [
-		"node_modules"
+		"node_modules",
 	]
 }

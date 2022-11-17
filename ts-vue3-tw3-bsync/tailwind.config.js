@@ -18,5 +18,8 @@ module.exports = {
     },
   },
 
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+  ],
   content: ['./*.php', './includes/**/*.php', './templates/**/*.php', './src/**/*.{js,ts,vue}'],
 };

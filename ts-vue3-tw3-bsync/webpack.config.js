@@ -6,9 +6,12 @@ const { ProvidePlugin, DefinePlugin } = require("webpack");
 const { VueLoaderPlugin } = require('vue-loader');
 const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 var pjson = require('./package.json');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+
 
 module.exports = {
-    devtool: mode === 'development' ? 'source-map' : false,
+    devtool: mode === 'development' ? 'eval-source-map' : false,
     entry: {
         frontend: './src/main.ts',
     },
@@ -24,10 +27,10 @@ module.exports = {
         extensions: [".js", ".ts", ".vue"],
     },
     plugins: [
-        new DefinePlugin({ __VUE_OPTIONS_API__: false, __VUE_PROD_DEVTOOLS__: false }),
+        new DefinePlugin({ __VUE_OPTIONS_API__: true, __VUE_PROD_DEVTOOLS__: false }),
         // Vue loader
         new VueLoaderPlugin(),
-        // Remove empty scripts for style entry
+        // Will remove unexpected empty js file
         new RemoveEmptyScriptsPlugin(),
         // Extract CSS from commonjs into seperate file
         new MiniCssExtractPlugin({
@@ -71,7 +74,7 @@ module.exports = {
             },
             // Fonts
             {
-                test: /\.(eot|ttf|woff|woff2)$/i,
+                test: /[\\/](fonts|@fontsource)[\\/].*\.(svg|woff|woff2|eot|ttf|otf)$/i,
                 type: 'asset/resource',
                 generator: {
                     filename: './fonts/[name][ext]',
@@ -79,7 +82,7 @@ module.exports = {
             },
             // Images
             {
-                test: /\.(svg|png|jpg|jpeg|gif)$/i,
+                test: /[\\/]images[\\/].*\.(svg|png|jpg|jpeg|gif)$/i,
                 type: 'asset/resource',
                 generator: {
                     filename: './images/[name][ext]',
@@ -88,7 +91,8 @@ module.exports = {
             // Vue
             {
                 test: /\.vue$/,
-                loader: 'vue-loader'
+                loader: 'vue-loader',
+                options: { sourceMap: true },
             },
             // Typescript
             {
@@ -101,16 +105,44 @@ module.exports = {
             },
         ],
     },
-    // Load Vendors module into separate file
     optimization: {
+        // runtimeChunk: 'single', // Separate webpack runtime
         splitChunks: {
             cacheGroups: {
-                vendor: {
+                js: { // Separate vendors js
                     test: /[\\/]node_modules[\\/].*\.js$/,
                     name: "vendors",
                     chunks: "initial",
                 },
             },
+        },
+        minimizer: [
+            // Minimize style
+            new CssMinimizerPlugin({
+                minimizerOptions: {
+                    preset: [
+                        "default",
+                        {
+                            discardComments: { removeAll: true },
+                        },
+                    ],
+                },
+            }),
+            // Minimize js
+            new TerserPlugin({
+                terserOptions: {
+                    format: {
+                        comments: false,
+                    },
+                },
+                extractComments: false,
+            }),
+        ],
+    },
+    performance: {
+        // Control which files type for performance hints
+        assetFilter: function (assetFilename) {
+            return assetFilename.endsWith('.js') || assetFilename.endsWith('.css');
         },
     },
 };

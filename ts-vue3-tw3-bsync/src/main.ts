@@ -1,20 +1,19 @@
-// Misc
-import './sass/style.scss'
+// Styles
+import './scss/main.scss'
 // Vue
 import { createApp } from 'vue';
+// Images
+require.context('./images', true, /.*/);
 
 // Create vue app
-const app = createApp({});
+const App = createApp({});
 
 // Add vue components globally
 const ComponentContext = require.context('./components', true, /\.vue$/i);
 ComponentContext.keys().forEach(componentFilePath => {
     const componentName = componentFilePath.split('/').pop().split('.')[0];
-    app.component(componentName, ComponentContext(componentFilePath).default);
+    App.component(componentName, ComponentContext(componentFilePath).default);
 });
 
 // Mount vue app
-app.mount('#app');
-
-// Require all images
-require.context('./images', true, /.*/);
+App.mount('#app');
