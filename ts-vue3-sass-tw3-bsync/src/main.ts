@@ -8,7 +8,7 @@ require.context('./images', true, /.*/);
 // Create vue app
 const App = createApp({});
 
-// Add vue components globally
+// Autoload vue components globally
 const ComponentContext = require.context('./components', true, /\.vue$/i);
 ComponentContext.keys().forEach(componentFilePath => {
     const componentName = componentFilePath.split('/').pop().split('.')[0];
