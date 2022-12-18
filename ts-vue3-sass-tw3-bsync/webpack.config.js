@@ -4,10 +4,10 @@ const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 const mode = process.argv.includes('production') ? 'production' : 'development';
 const { ProvidePlugin, DefinePlugin } = require("webpack");
 const { VueLoaderPlugin } = require('vue-loader');
-const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
-var pjson = require('./package.json');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
+var pjson = require('./package.json');
 
 
 module.exports = {

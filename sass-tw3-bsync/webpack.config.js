@@ -1,22 +1,22 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
-const { ProvidePlugin } = require("webpack");
 const mode = process.argv.includes('production') ? 'production' : 'development';
+const { ProvidePlugin } = require("webpack");
+const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
+var pjson = require('./package.json');
 
 module.exports = {
-    devtool: mode === 'development' ? 'source-map' : false,
+    devtool: mode === 'development' ? 'eval-source-map' : false,
     entry: {
-        main: './src/js/main.js',  
-        style: './src/sass/main.scss',
+        frontend: './src/js/frontend.js',
     },
     output: {
         filename: 'js/[name].js',
         path: path.resolve(__dirname, 'assets'),
-        // Clean build
-        clean: {
-            keep: /(media)/, // Keep these assets
-        },
+        clean: true,
+    },
+    resolve: {
     },
     plugins: [
         // Remove empty scripts for style entry
@@ -25,25 +25,45 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "css/[name].css",
         }),
-        // Provide Global Library
+        // Provide jQuery globally
         new ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery',
-            'window.$': 'jquery',
-            'window.jQuery': 'jquery',
-            Popper: ['popper.js', 'default'],
+            $: "jquery",
+            "global.$": "jquery",
+            "window.$": "jquery",
+        }),
+        // Browser Sync
+        new BrowserSyncPlugin({
+            host: "localhost",
+            port: 3000,
+            proxy: `${pjson.name}.localhost`,
+            notify: false,
+            files: ["./(**/)?.(php|js|vue|ts)"],
         }),
     ],
+    externals: {
+        jquery: 'jQuery',
+    },
     module: {
         rules: [
             // Style
             {
                 test: /\.s?css$/i,
-                use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    "css-loader",
+                    "postcss-loader",
+                    "resolve-url-loader",
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true,
+                        }
+                    }
+                ],
             },
             // Fonts
             {
-                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                test: /\.(eot|ttf|woff|woff2)$/i,
                 type: 'asset/resource',
                 generator: {
                     filename: './fonts/[name][ext]',
@@ -57,6 +77,6 @@ module.exports = {
                     filename: './images/[name][ext]',
                 },
             },
-      ],
+        ],
     },
 };
