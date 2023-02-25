@@ -7,13 +7,19 @@ const { VueLoaderPlugin } = require('vue-loader');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
-var pjson = require('./package.json');
+const pjson = require('./package.json');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-
+/**
+ * Webpack configuration
+ * @type {import('webpack').Configuration}
+ * @see https://webpack.js.org/configuration/
+ */
 module.exports = {
     devtool: mode === 'development' ? 'eval-source-map' : false,
     entry: {
-        frontend: './src/main.ts',
+        frontend: './src/frontend.ts',
+        admin: './src/js/admin.ts',
     },
     output: {
         filename: 'js/[name].js',
@@ -27,7 +33,29 @@ module.exports = {
         extensions: [".js", ".ts", ".vue"],
     },
     plugins: [
+        // Define global variables for Vue 3
         new DefinePlugin({ __VUE_OPTIONS_API__: true, __VUE_PROD_DEVTOOLS__: false }),
+        // Copy images and fonts to assets folder
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: 'src/images',
+                    to: 'images',
+                    globOptions: {
+                        ignore: ['**/*.gitkeep'],
+                    },
+                    noErrorOnMissing: true,
+                },
+                {
+                    from: 'src/fonts',
+                    to: 'fonts',
+                    globOptions: {
+                        ignore: ['**/*.gitkeep'],
+                    },
+                    noErrorOnMissing: true,
+                },
+            ],
+        }),
         // Vue loader
         new VueLoaderPlugin(),
         // Will remove unexpected empty js file
@@ -36,11 +64,10 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "css/[name].css",
         }),
-        // Provide jQuery globally
+        // Provide plugin globally
         new ProvidePlugin({
             $: "jquery",
-            "global.$": "jquery",
-            "window.$": "jquery",
+            jQuery: "jquery",
         }),
         // Browser Sync
         new BrowserSyncPlugin({
@@ -48,7 +75,8 @@ module.exports = {
             port: 3000,
             proxy: `${pjson.name}.localhost`,
             notify: false,
-            files: ["./(**/)?.(php|js|vue|ts)"],
+            files: ['./*.php', './**/*.php', './src/**/*.*'],
+            watch: true,
         }),
     ],
     externals: {
@@ -72,20 +100,12 @@ module.exports = {
                     }
                 ],
             },
-            // Fonts
+            // @fontsource fonts https://fontsource.org/docs/getting-started
             {
                 test: /[\\/](fonts|@fontsource)[\\/].*\.(svg|woff|woff2|eot|ttf|otf)$/i,
                 type: 'asset/resource',
                 generator: {
                     filename: './fonts/[name][ext]',
-                },
-            },
-            // Images
-            {
-                test: /[\\/]images[\\/].*\.(svg|png|jpg|jpeg|gif)$/i,
-                type: 'asset/resource',
-                generator: {
-                    filename: './images/[name][ext]',
                 },
             },
             // Vue
@@ -106,7 +126,6 @@ module.exports = {
         ],
     },
     optimization: {
-        // runtimeChunk: 'single', // Separate webpack runtime
         splitChunks: {
             cacheGroups: {
                 js: { // Separate vendors js

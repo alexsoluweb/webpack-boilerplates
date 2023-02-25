@@ -1,9 +1,7 @@
 // Styles
-import './scss/main.scss'
+import './scss/frontend.scss'
 // Vue
 import { createApp } from 'vue';
-// Images
-require.context('./images', true, /.*/);
 
 // Create vue app
 const App = createApp({});

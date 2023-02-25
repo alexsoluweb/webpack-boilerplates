@@ -1,9 +1,9 @@
 // Styles
-import '../scss/frontend.scss'
+import '../scss/admin.scss'
 // Jquery
 import $ from 'jquery';
 
 // Main 
 $(function () {
-    // App entry ...
+	// App entry ...
 });
