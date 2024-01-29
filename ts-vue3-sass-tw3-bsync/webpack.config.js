@@ -16,11 +16,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
  * @see https://webpack.js.org/configuration/
  */
 module.exports = {
-    devtool: mode === 'development' ? 'eval-source-map' : false,
-    entry: {
-        frontend: './src/frontend.ts',
-        admin: './src/js/admin.ts',
-    },
+    devtool: mode === 'development' ? 'source-map' : false,
+    mode: mode,
     output: {
         filename: 'js/[name].js',
         path: path.resolve(__dirname, 'assets'),
@@ -33,6 +30,22 @@ module.exports = {
         extensions: [".js", ".ts", ".vue"],
     },
     plugins: [
+        // Browser Sync
+        new BrowserSyncPlugin({
+            port: 3005,
+            proxy: `dev.local`,
+            notify: false,
+            files: [
+              './*.php',
+              './includes/**/*.php',
+              './templates/**/*.php',
+              './assets/**/*.{js,css}',
+            ],
+            injectChanges: true,
+        },{
+            reload: false,
+            injectCss: true,
+        }),
         // Define global variables for Vue 3
         new DefinePlugin({ __VUE_OPTIONS_API__: true, __VUE_PROD_DEVTOOLS__: false }),
         // Copy images and fonts to assets folder
@@ -68,15 +81,6 @@ module.exports = {
         new ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",
-        }),
-        // Browser Sync
-        new BrowserSyncPlugin({
-            host: "localhost",
-            port: 3000,
-            proxy: `${pjson.name}.localhost`,
-            notify: false,
-            files: ['./*.php', './**/*.php', './src/**/*.*'],
-            watch: true,
         }),
     ],
     externals: {

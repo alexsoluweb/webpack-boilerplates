@@ -2,3 +2,6 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+// Import all files in the frontend folder
+@import "./frontend/**/*.scss";
