@@ -18,6 +18,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
     devtool: mode === 'development' ? 'source-map' : false,
     mode: mode,
+    entry: {
+        'asw-frontend' : './src/frontend.ts',
+        'asw-admin': './src/admin.ts',
+    },
     output: {
         filename: 'js/[name].js',
         path: path.resolve(__dirname, 'assets'),

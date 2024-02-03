@@ -18,8 +18,8 @@ module.exports = {
     devtool: mode === 'development' ? 'source-map' : false,
     mode: mode,
     entry: {
-        frontend: './src/js/_frontend.js',
-        admin: './src/js/_admin.js',
+        'asw-frontend' : './src/js/_frontend.js',
+        'asw-admin': './src/js/_admin.js',
     },
     output: {
         filename: 'js/[name].js',
