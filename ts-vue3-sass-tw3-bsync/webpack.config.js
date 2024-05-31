@@ -37,7 +37,7 @@ module.exports = {
         // Browser Sync
         new BrowserSyncPlugin({
             port: 3005,
-            proxy: `dev.local`,
+            proxy: `localhost`,
             notify: false,
             files: [
               './*.php',
